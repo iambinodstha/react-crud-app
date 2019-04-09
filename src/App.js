@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import {useTextBoxValue} from './textBoxValue';
-
+import { useTextBoxValue } from './textBoxValue';
 import './App.css';
 
 const App = () => {
   const [todoList, setTodoList] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState('');
 
-  const todoText = useTextBoxValue(""); 
-  const updateText = useTextBoxValue(""); 
+  const todoText = useTextBoxValue("");
+  const updateText = useTextBoxValue("");
 
   function addTodo() {
     setTodoList([...todoList, {
@@ -17,18 +16,21 @@ const App = () => {
     }])
   }
 
+  // delete function delete selected 
+  // item when clicked in delete button
   function deleteTodo(index) {
-    setTodoList(todoList.filter((todo, i) => index !== i))
+    setTodoList(todoList.filter((todo, i) => index !== i));
   }
 
-  function updateTodo(index){
+  // updates todoText in selected list when update button is clicked
+  function updateTodo(index) {
     let newTodo = todoList.slice();
     newTodo[index].textValue = updateText.value;
     setTodoList(newTodo);
     setSelectedIndex("");
   }
 
-  function toggleTodod(index){
+  function toggleTodod(index) {
     let newTodo = todoList.slice();
     newTodo[index].isComplete = !newTodo[index].isComplete;
     setTodoList(newTodo);
@@ -37,37 +39,33 @@ const App = () => {
   return (
     <div className="App">
 
-      <div style={{ marginTop: "25px" }}>
-        <input {...todoText}
-          placeholder="add todo.." />
-        <button
-          onClick={addTodo}
-        >Add Todo</button>
+      <div style={{ margin: "30px 0" }}>
+        <input className="textBox" {...todoText} placeholder="add todo.." />
+        <button className="button" onClick={addTodo}>Add Todo</button>
       </div>
 
       {todoList.map((todo, index) => <div
-        key={index.toString()}
-      >
-        {selectedIndex === index ? <div style={{ marginTop: "25px" }}>
-          <input {...updateText}
-            placeholder="update todo.." />
-          <button
-            onClick={()=>updateTodo(index)}
-          >update Todo</button>
+        key={index.toString()}>
+
+        {/* update textbox will toggle when update button is clicked */}
+        {selectedIndex === index ? <div>
+          <input className="textBox" {...updateText} placeholder="update todo.." />
+          <button className="button" onClick={() => updateTodo(index)}>update Todo</button>
         </div> : null}
 
-        <p
-          onClick={()=>toggleTodod(index)}
-          style={{ marginRight: "30px", color: todo.isComplete ? "red" : "black" }}
-        >{index + 1} {todo.textValue}</p>
+        <div className="todoListsContainer">
+          <p
+            className="todoText"
+            style={{ textDecoration: todo.isComplete ? "line-through" : "none" }}
+            onClick={() => toggleTodod(index)}
+          >{index + 1}. {todo.textValue}</p>
 
-        <button
-          onClick={() => setSelectedIndex(index)}
-        >update</button>
+          <div className="buttonContainer">
+            <button style={{ background: "gray" }} className="actionButton" onClick={() => setSelectedIndex(index)}>update</button>
+            <button className="actionButton" onClick={() => deleteTodo(index)}>delete</button>
+          </div>
+        </div>
 
-        <button
-          onClick={() => deleteTodo(index)}
-        >delete</button>
       </div>)}
 
     </div>
