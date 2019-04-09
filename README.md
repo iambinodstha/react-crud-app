@@ -1,4 +1,4 @@
-## React CRUD Application
+## React Todo CRUD Application
 
 ## What is This
 This is React CRUD Application with React hooks `useState` in function component where we can add Todo list, update Todo list, delete Todo list and toggle todo list by clicking todo which indicates todo is completed or not.
