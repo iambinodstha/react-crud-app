@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
+import {useTextBoxValue} from './textBoxValue';
+
 import './App.css';
 
 const App = () => {
-  const [todo, setTodo] = useState("");
-  const [updatedTodo, setUpdatedTodo] = useState("");
-  
   const [todoList, setTodoList] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState('');
 
-  const handleChange = (e) => {
-    setTodo(e.target.value)
-  }
+  const todoText = useTextBoxValue(""); 
+  const updateText = useTextBoxValue(""); 
 
   function addTodo() {
     setTodoList([...todoList, {
-      todoText: todo,
+      textValue: todoText.value,
       isComplete: false
     }])
   }
@@ -25,7 +23,7 @@ const App = () => {
 
   function updateTodo(index){
     let newTodo = todoList.slice();
-    newTodo[index].todoText = updatedTodo;
+    newTodo[index].textValue = updateText.value;
     setTodoList(newTodo);
     setSelectedIndex("");
   }
@@ -40,8 +38,7 @@ const App = () => {
     <div className="App">
 
       <div style={{ marginTop: "25px" }}>
-        <input
-          onChange={handleChange}
+        <input {...todoText}
           placeholder="add todo.." />
         <button
           onClick={addTodo}
@@ -52,8 +49,7 @@ const App = () => {
         key={index.toString()}
       >
         {selectedIndex === index ? <div style={{ marginTop: "25px" }}>
-          <input
-            onChange={(e)=>setUpdatedTodo(e.target.value)}
+          <input {...updateText}
             placeholder="update todo.." />
           <button
             onClick={()=>updateTodo(index)}
@@ -63,7 +59,7 @@ const App = () => {
         <p
           onClick={()=>toggleTodod(index)}
           style={{ marginRight: "30px", color: todo.isComplete ? "red" : "black" }}
-        >{index + 1} {todo.todoText}</p>
+        >{index + 1} {todo.textValue}</p>
 
         <button
           onClick={() => setSelectedIndex(index)}
