@@ -43,6 +43,7 @@ const App = () => {
         <input className="textBox" {...todoText} placeholder="add todo.." />
         <button className="button" onClick={addTodo}>Add Todo</button>
       </div>
+      
 
       {todoList.map((todo, index) => <div
         key={index.toString()}>
