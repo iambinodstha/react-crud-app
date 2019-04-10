@@ -11,7 +11,7 @@ This is React CRUD Application with React hooks `useState` in function component
 `git clone https://github.com/binodstha7/react-crud-app.git`
 
 2. after Step 1. goto project directory:
-`cd reduxTodoApp`
+`cd react-crud-app`
 
 3. install dependencies:
 `npm install`
